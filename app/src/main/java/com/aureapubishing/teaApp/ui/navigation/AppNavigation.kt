@@ -6,7 +6,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -15,18 +14,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.aureapubishing.teaApp.ui.screens.home.HomeScreen
-import com.aureapubishing.teaApp.ui.screens.infusiones.InfusionesScreen
-import com.aureapubishing.teaApp.ui.screens.perfil.PerfilScreen
-import com.aureapubishing.teaApp.ui.screens.tes.TesScreen
+import com.aureapubishing.teaApp.ui.screens.infusions.InfusionsScreen
+import com.aureapubishing.teaApp.ui.screens.profile.ProfileScreen
+import com.aureapubishing.teaApp.ui.screens.teas.TeasScreen
 
 sealed class Screen(val route: String, val label: String) {
     data object Home : Screen("home", "Inicio")
-    data object Infusiones : Screen("infusiones", "Infusiones")
-    data object Tes : Screen("tes", "Tés")
-    data object Perfil : Screen("perfil", "Perfil")
+    data object Infusions : Screen("infusiones", "Infusiones")
+    data object Teas : Screen("tes", "Tés")
+    data object Profile: Screen("perfil", "Perfil")
 }
 
-val bottomBarScreens = listOf(Screen.Home, Screen.Infusiones, Screen.Tes, Screen.Perfil)
+val bottomBarScreens = listOf(Screen.Home, Screen.Infusions, Screen.Teas, Screen.Profile)
 
 fun NavHostController.navigateToTab(route: String) {
     navigate(route) {
@@ -44,16 +43,16 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
         modifier = modifier
     ) {
         composable(Screen.Home.route) {
-            HomeScreen(onNext = { navController.navigateToTab(Screen.Infusiones.route) })
+            HomeScreen(onNext = { navController.navigateToTab(Screen.Infusions.route) })
         }
-        composable(Screen.Infusiones.route) {
-            InfusionesScreen(onNext = { navController.navigateToTab(Screen.Tes.route) })
+        composable(Screen.Infusions.route) {
+            InfusionsScreen(onNext = { navController.navigateToTab(Screen.Teas.route) })
         }
-        composable(Screen.Tes.route) {
-            TesScreen(onNext = { navController.navigateToTab(Screen.Perfil.route) })
+        composable(Screen.Teas.route) {
+            TeasScreen(onNext = { navController.navigateToTab(Screen.Profile.route) })
         }
-        composable(Screen.Perfil.route) {
-            PerfilScreen(onNext = { navController.navigateToTab(Screen.Home.route) })
+        composable(Screen.Profile.route) {
+            ProfileScreen(onNext = { navController.navigateToTab(Screen.Home.route) })
         }
     }
 }
